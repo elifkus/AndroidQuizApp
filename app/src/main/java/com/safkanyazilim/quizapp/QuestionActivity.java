@@ -1,13 +1,14 @@
 package com.safkanyazilim.quizapp;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 
-public class QuestionActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener {
+import com.safkanyazilim.quizapp.data.DataManager;
+
+public class QuestionActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +17,8 @@ public class QuestionActivity extends FragmentActivity implements RadioGroup.OnC
 
         RadioGroup choicesRadioGroup = (RadioGroup)findViewById(R.id.choicesRadioGroup);
         choicesRadioGroup.setOnCheckedChangeListener(this);
+
+        DataManager.readData();
     }
 
     public void answerQuestion(View view) {
@@ -26,8 +29,8 @@ public class QuestionActivity extends FragmentActivity implements RadioGroup.OnC
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        Button answerButton = (Button) findViewById(R.id.answerButton);
-        
+        Button answerButton = (Button)findViewById(R.id.answerButton);
+
         if (checkedId != -1) {
             answerButton.setClickable(true);
         }
