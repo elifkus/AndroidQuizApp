@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.safkanyazilim.quizapp.QuestionActivity">
+    tools:context=".presentation.QuestionActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -23,8 +23,7 @@
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/questionText"
-            android:layout_weight="0.25"
-            android:text="Dünyanın şekli nasıldır?" />
+            android:layout_weight="0.25" />
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -33,36 +32,7 @@
             android:layout_weight="0.60"
             android:id="@+id/choicesRadioGroup">
 
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Yuvarlak"
-                android:id="@+id/choiceAButton"
-                android:layout_weight="0.25" />
 
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Kare"
-                android:id="@+id/choiceBButton"
-                android:layout_weight="0.25"
-                android:checked="false" />
-
-            <RadioButton
-                android:layout_width="362dp"
-                android:layout_height="wrap_content"
-                android:text="Tepsi"
-                android:id="@+id/choiceCButton"
-                android:layout_weight="0.25"
-                android:checked="false" />
-
-            <RadioButton
-                android:layout_width="340dp"
-                android:layout_height="wrap_content"
-                android:text="Geoid"
-                android:id="@+id/choiceDButton"
-                android:layout_weight="0.25"
-                android:checked="false" />
         </RadioGroup>
 
         <Button

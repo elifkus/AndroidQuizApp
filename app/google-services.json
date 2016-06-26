@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "972629447715",
+    "firebase_url": "https://bilgiyarismasi-241cb.firebaseio.com",
+    "project_id": "bilgiyarismasi-241cb",
+    "storage_bucket": "bilgiyarismasi-241cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972629447715:android:743faec2c8ab77fc",
+        "android_client_info": {
+          "package_name": "com.safkanyazilim.quizapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972629447715-jomjbdkn12sq0tinjark8gg24bc8hqk2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPiIeZ2IJeVXuYD_WQaKbdKko9SqRQ_e8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
