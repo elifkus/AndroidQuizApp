@@ -3,6 +3,7 @@ package com.safkanyazilim.quizapp;
 import android.app.Application;
 import android.util.Log;
 
+import com.safkanyazilim.quizapp.business.QuestionService;
 import com.safkanyazilim.quizapp.data.DataConsumer;
 import com.safkanyazilim.quizapp.data.DataRetriever;
 import com.safkanyazilim.quizapp.data.FirebaseDataRetriever;
@@ -23,6 +24,7 @@ public class QuizApplication extends Application {
 
     private void init() {
         this.initDataRetriever();
+        this.initServiceProviders();
     }
 
     private void initDataRetriever() {
@@ -30,6 +32,12 @@ public class QuizApplication extends Application {
         dataRetriever.init();
 
         ObjectsRepo.setDataRetriever(dataRetriever);
+    }
+
+    private void initServiceProviders() {
+        QuestionService questionServiceProvider = new QuestionService();
+
+        ObjectsRepo.setQuestionServiceProvider(questionServiceProvider);
     }
 
 }

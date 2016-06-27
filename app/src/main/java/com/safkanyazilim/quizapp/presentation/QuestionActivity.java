@@ -1,5 +1,6 @@
 package com.safkanyazilim.quizapp.presentation;
 
+import android.app.Service;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,7 +10,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.safkanyazilim.quizapp.R;
-import com.safkanyazilim.quizapp.data.DataConsumer;
+import com.safkanyazilim.quizapp.business.QuestionService;
+import com.safkanyazilim.quizapp.business.ServiceConsumer;
+import com.safkanyazilim.quizapp.business.ServiceProvider;
 import com.safkanyazilim.quizapp.dependencyinjection.ObjectsRepo;
 import com.safkanyazilim.quizapp.models.Question;
 import com.safkanyazilim.quizapp.presentation.dialog.NotFoundDialogFragment;
@@ -17,7 +20,9 @@ import com.safkanyazilim.quizapp.presentation.dialog.ResultDialogFragment;
 
 import java.util.List;
 
-public class QuestionActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, DataConsumer {
+public class QuestionActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, ServiceConsumer<Question> {
+    private ServiceProvider<Question> questionService;
+
     private List<Question> questionList;
     private int currentIndex=0;
 
@@ -28,10 +33,9 @@ public class QuestionActivity extends AppCompatActivity implements RadioGroup.On
 
 
         //FIXME: These two lines should be in the business layer
-        ObjectsRepo.getDataRetriever().addDataConsumer(this);
-        ObjectsRepo.getDataRetriever().retrieveQuestions();
-
-
+        this.questionService = ObjectsRepo.getQuestionServiceProvider();
+        this.questionService.addServiceConsumer(this);
+        this.questionService.retrieveData();
 
         RadioGroup choicesRadioGroup = (RadioGroup)findViewById(R.id.choicesRadioGroup);
         choicesRadioGroup.setOnCheckedChangeListener(this);
@@ -64,7 +68,7 @@ public class QuestionActivity extends AppCompatActivity implements RadioGroup.On
     }
 
     @Override
-    public void questionsArrived(List<Question> questionList) {
+    public void dataArrived(List<Question> questionList) {
         this.questionList = questionList;
 
         if (this.questionList != null && this.questionList.size() < 1) {

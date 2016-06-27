@@ -37,31 +37,36 @@ public class FirebaseDataRetriever implements DataRetriever {
 
     @Override
     public void retrieveQuestions() {
+        if (this.questionsList == null) {
+            this.questionsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    GenericTypeIndicator<Map<String, Question>> type = new GenericTypeIndicator<Map<String, Question>>() {
+                    };
+                    Map<String, Question> questionMap = (Map<String, Question>) snapshot.getValue(type);
+                    Log.i("quizapp", "Snapshot:" + snapshot.getValue().toString());
+                    Log.e("quizapp", "Question map values is :" + questionMap.values());
+                    Log.e("quizapp", "Question text is :" + questionMap.get("question1").text);
+                    questionsList = new ArrayList<Question>(questionMap.values());
+                    Log.e("quizapp", "Question text in list is :" + questionsList.get(0).text);
+                    notifyConsumers(questionsList);
+                }
 
-        this.questionsReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                GenericTypeIndicator<Map<String,Question>> type = new GenericTypeIndicator<Map<String,Question>>() {};
-                Map<String,Question> questionMap = (Map<String,Question>) snapshot.getValue(type);
-                Log.i("quizapp", "Snapshot:" + snapshot.getValue().toString());
-                Log.e("quizapp", "Question map values is :" + questionMap.values());
-                Log.e("quizapp", "Question text is :" + questionMap.get("question1").text);
-                questionsList = new ArrayList<Question>(questionMap.values());
-                Log.e("quizapp", "Question text in list is :" + questionsList.get(0).text);
-                notifyConsumers();
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e("quizapp", "The read failed: " + databaseError.getMessage());
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("quizapp", "The read failed: " + databaseError.getMessage());
-            }
-
-        });
+            });
+        } else {
+            notifyConsumers(questionsList);
+        }
 
     }
 
-    private void notifyConsumers() {
-        for (DataConsumer consumer:this.dataConsumerList ) {
+    @Override
+    public void notifyConsumers(List questionsList) {
+        for (DataConsumer consumer : this.dataConsumerList) {
             consumer.questionsArrived(this.questionsList);
         }
     }
