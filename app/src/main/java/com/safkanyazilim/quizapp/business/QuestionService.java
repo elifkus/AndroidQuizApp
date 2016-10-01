@@ -14,8 +14,6 @@ import java.util.List;
 public class QuestionService implements ServiceProvider<Question>, DataConsumer {
     private List<ServiceConsumer> consumerList;
 
-    private List<Question> questionList;
-
     private DataRetriever dataRetriever;
 
     public QuestionService() {
@@ -34,9 +32,8 @@ public class QuestionService implements ServiceProvider<Question>, DataConsumer 
     }
 
     public void notifyConsumers(List<Question> questionList) {
-        this.questionList = questionList;
         for(ServiceConsumer consumer : consumerList) {
-            consumer.dataArrived(this.questionList);
+            consumer.dataArrived(questionList);
         }
     }
 
